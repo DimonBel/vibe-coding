@@ -59,11 +59,23 @@ def create_api_models(api):
         'code': fields.Integer(description='Error code')
     })
     
+    # Chat request model
+    chat_request_model = api.model('ChatRequest', {
+        'message': fields.String(required=True, description='User message for the chatbot')
+    })
+
+    # Chat response model
+    chat_response_model = api.model('ChatResponse', {
+        'response': fields.String(description='Chatbot response')
+    })
+    
     return {
         'user': user_model,
         'task': task_model,
         'task_create': task_create_model,
         'task_update': task_update_model,
         'user_create': user_create_model,
-        'error': error_model
+        'error': error_model,
+        'chat_request': chat_request_model,
+        'chat_response': chat_response_model
     } 

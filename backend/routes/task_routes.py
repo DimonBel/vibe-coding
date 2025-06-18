@@ -16,7 +16,6 @@ def create_task_routes(api, models):
         def get(self):
             """List all tasks"""
             return task_service.get_all_tasks()
-
         @ns_tasks.expect(models['task_create'])
         @ns_tasks.marshal_with(models['task'])
         def post(self):

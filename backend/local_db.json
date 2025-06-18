@@ -19,20 +19,14 @@
       "id": "de1543d0-762d-4a2a-880d-5344ba630144",
       "username": "Diama",
       "email": "dimasnw@ksa.com"
+    },
+    {
+      "id": "528c1298-5808-4340-8f5b-3a5fa5db487f",
+      "username": "ds",
+      "email": "sadas@dsaj.com"
     }
   ],
   "tasks": [
-    {
-      "id": "0040c99e-a3ec-4b03-b353-2c17cb7cb316",
-      "title": "string",
-      "description": "string",
-      "status": "pending",
-      "ai_response": "Error: Error code: 400 - {'error': {'message': 'The model `mixtral-8x7b-32768` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",
-      "users": [],
-      "details": {},
-      "created_at": "2025-06-18T00:40:41.880072",
-      "updated_at": "2025-06-18T00:40:41.880072"
-    },
     {
       "id": "944d7918-daa6-4bc2-94ad-6ed0cd689529",
       "title": "fjfia",
@@ -54,6 +48,35 @@
       "details": {},
       "created_at": "2025-06-18T15:04:57.126548",
       "updated_at": "2025-06-18T15:04:57.126548"
+    },
+    {
+      "id": "0c6da758-fab2-4758-8266-3bf46f1840d5",
+      "title": "sdcac",
+      "description": "Here\u2019s what else to know:\n\n    Threat of retaliation: Iranian officials have said that if the United States enters the war, it would attack American bases in the region. Iran has prepared missiles for these possible strikes, according to U.S. officials who have reviewed intelligence reports.\n\n    Shift in strategy: In Iran, Israel is carrying out the kind of broad and brazen attack that it long threatened but never dared to enact. The campaign reflects an extraordinary shift in Israeli military doctrine since Hamas, Iran\u2019s Palestinian ally, attacked the country in October 2023. That change has redrawn the power dynamics in the Middle East, unraveled Iran\u2019s regional alliance and enshrined Israel as the dominant military force in the region.\n\n    Stranded travelers: The first flights carrying Israelis stranded overseas landed at Ben Gurion International Airport on Wednesday as part of a wave of special transports to bring citizens home. Thousands of international tourists have been unable to leave Israel since the country\u2019s airspace was closed to civilian flights last week.\n\n    Internet disrupted: Amid severe disruptions to internet services in Iran, the country\u2019s state broadcaster urged people to remove WhatsApp from their phones, claiming that the messaging app was collecting user information and sending it to Israel. WhatsApp has rejected the allegations.\n\nMatthew Mpoke Bigg\nJune 18, 2025, 8:07 a.m. ETJune 18, 2025\n\nMatthew Mpoke Bigg\n",
+      "status": "in_progress",
+      "ai_response": "To approach this task effectively, I recommend the following steps:\n\n1. **Read the article carefully**: Take your time to read the article and understand the main points, events, and themes presented. Pay attention to the dates, locations, and individuals mentioned.\n2. **Identify the key points**: Jot down the most important information, such as the threat of retaliation, shift in strategy, stranded travelers, and internet disruptions. Try to summarize each point in a few sentences.\n3. **Organize the information**: Group the key points into categories, such as:\n\t* Military developments (threat of retaliation, shift in strategy)\n\t* Humanitarian issues (stranded travelers)\n\t* Technology and communication (internet disruptions)\n4. **Use specific language and terminology**: Use the exact words and phrases from the article to describe each point. This will help you stay accurate and avoid misinterpretation.\n5. **Provide context**: If necessary, provide brief context to help readers understand the significance of each point. For example, you could explain why the threat of retaliation is important or how the shift in strategy affects the region.\n6. **Use clear and concise language**: Write in a clear and concise manner, avoiding jargon and technical terms that might confuse readers. Use simple language to convey complex information.\n7. **Check for accuracy**: Double-check the accuracy of the information by re-reading the article and verifying the details.\n\nBy following these steps, you'll be able to effectively summarize the article and provide a clear understanding of the key points.",
+      "users": [],
+      "details": {
+        "priority": "high",
+        "notes": "s"
+      },
+      "created_at": "2025-06-18T23:08:26.194492",
+      "updated_at": "2025-06-18T23:08:26.194492"
+    },
+    {
+      "id": "334db69b-fe2f-42d8-8b04-591bf0f88331",
+      "title": "hfgr",
+      "description": " dydf dhdhd ",
+      "status": "completed",
+      "ai_response": "Error: no healthy upstream",
+      "users": [],
+      "details": {
+        "priority": "medium",
+        "due_date": "2025-06-07T00:00:00.000Z",
+        "notes": ""
+      },
+      "created_at": "2025-06-18T23:14:41.570516",
+      "updated_at": "2025-06-18T23:14:41.570516"
     }
   ]
 }
