@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "id": "67a76902-b4a5-43ce-8b17-b188857af06e",
+      "username": "string",
+      "email": "string"
+    },
+    {
+      "id": "17bdcd63-0884-4ee1-b0b4-98dede3a3ac2",
+      "username": "stryiing",
+      "email": "strbkhing"
+    },
+    {
+      "id": "dcfd31a1-f0af-4ce4-9fea-8f9fa3f5c2c0",
+      "username": "strnyiing",
+      "email": "strbkhning"
+    },
+    {
+      "id": "de1543d0-762d-4a2a-880d-5344ba630144",
+      "username": "Diama",
+      "email": "dimasnw@ksa.com"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "0040c99e-a3ec-4b03-b353-2c17cb7cb316",
+      "title": "string",
+      "description": "string",
+      "status": "pending",
+      "ai_response": "Error: Error code: 400 - {'error': {'message': 'The model `mixtral-8x7b-32768` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",
+      "users": [],
+      "details": {},
+      "created_at": "2025-06-18T00:40:41.880072",
+      "updated_at": "2025-06-18T00:40:41.880072"
+    },
+    {
+      "id": "944d7918-daa6-4bc2-94ad-6ed0cd689529",
+      "title": "fjfia",
+      "description": "Vovia sksk",
+      "status": "pending",
+      "ai_response": "Error: Error code: 400 - {'error': {'message': 'The model `mixtral-8x7b-32768` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}",
+      "users": [],
+      "details": {},
+      "created_at": "2025-06-18T15:01:01.576002",
+      "updated_at": "2025-06-18T15:01:01.576002"
+    },
+    {
+      "id": "68567474-e253-4af2-8e60-410d9886008c",
+      "title": "Dodica",
+      "description": "Iran\u2019s supreme leader, Ayatollah Ali Khamenei, on Wednesday dismissed President Trump\u2019s threats and rejected his call for an \u201cunconditional surrender,\u201d adding to fears of a wider conflagration in the Middle East.\n\n\u201cIntelligent people who know Iran, the nation and the history of Iran will never speak to this nation in the language of threats, because the Iranian nation cannot be surrendered,\u201d he said in a televised statement, according to Iranian state media. \u201cThe Americans should know that any U.S. military intervention will undoubtedly be accompanied by irreparable damage.\u201d\n\nHis remarks on the sixth day of the war were a defiant response to Israel and to President Trump, who has suggested that the United States could join Israel\u2019s bombing campaign against Iran\u2019s nuclear program.\n\nAny potential U.S. military strike would likely have a much more devastating impact on Iran\u2019s nuclear program than Israel can wreak alone, and Israel has been pressing for the U.S. military to assist its efforts.\n\nMr. Trump has long maintained that he opposes getting involved in foreign wars and expressed hopes for a nuclear deal with Iran. But he said on Tuesday that \u201cour patience is wearing thin.\u201d\n\nIsrael continued to pummel Iran in the early hours of Wednesday. More than 50 Israeli warplanes attacked targets across the Iranian capital, according to the Israeli military, which said that a nuclear centrifuge plant was among the targets. The Iranian authorities did not immediately comment on the claims, though the U.N.\u2019s nuclear watchdog said it had information suggesting that two centrifuge production facilities had been hit.\n\nIran fired about 30 ballistic missiles at Israel in two barrages after midnight and two waves of drones on Wednesday morning, but most of the missiles and all the drones were intercepted, Israel said. There were no immediate reports of casualties, and Iran\u2019s missile salvos appeared to be limited compared with earlier attacks.\n\nAs the Trump administration contemplates its next steps, the U.S. president seemed to suggest that the United States could enter the conflict against Iran. He used the word \u201cwe\u201d while referring to Israeli military operations, and also cited the possibility of killing Ayatollah Khamenei. \u201cWe are not going to take him out (kill!), at least for now,\u201d Mr. Trump wrote.\n\nIsrael considers Iran\u2019s nuclear program to be a threat to its survival. The Israeli military has struck and damaged some of Iran\u2019s major nuclear sites since it started attacking the country on Friday, but lacks the capability to effectively hit the facilities at Fordo, the most important nuclear site, which lie deep underground. Prime Minister Benjamin Netanyahu of Israel wants the United States to drop its biggest bunker-busting bombs on Fordo. Mr. Trump and Mr. Netanyahu spoke on the phone on Tuesday, according to a Trump administration official who did not provide details.",
+      "status": "pending",
+      "ai_response": "This article reports on the escalating conflict between Iran and Israel, with the United States potentially entering the fray. Here are some key points and guidance:\n\n**Key Points:**\n\n1. Iran's Supreme Leader Ayatollah Ali Khamenei rejects President Trump's call for \"unconditional surrender\" and warns of devastating consequences if the US intervenes militarily.\n2. The conflict has been ongoing since Friday, with Israel launching airstrikes against Iran's nuclear program and Iran retaliating with missile attacks.\n3. The US has hinted at potentially joining the conflict, with President Trump suggesting that the US could join Israel's bombing campaign and even targeting Ayatollah Khamenei.\n4. Israel has been pressing for US military assistance, citing Iran's nuclear program as a threat to its survival.\n\n**Guidance:**\n\n1. The article is reporting on a developing and complex international conflict, so it's essential to provide context and background information to help readers understand the situation.\n2. Pay attention to the language used by the parties involved, as it can reveal their intentions and motivations. For example, Ayatollah Khamenei's statement emphasizes Iran's sovereignty and resistance to foreign threats.\n3. The article mentions the US's potential involvement, which could have significant implications for the region and global stability. Provide analysis on the potential consequences of US intervention.\n4. The situation is fluid and rapidly evolving, so it's crucial to stay up-to-date with the latest developments and provide regular updates to readers.\n5. The article highlights the importance of the US-Israel relationship and the potential for the US to play a decisive role in the conflict. Provide context on the historical ties between the two nations and the implications of their relationship.\n6. The article mentions the potential for civilian casualties and damage to infrastructure. Provide guidance on the humanitarian implications of the conflict and the potential for harm to innocent civilians.\n7. The article also highlights the significance of Iran's nuclear program and the concerns surrounding it. Provide context on the history of Iran's nuclear program and the international community's stance on it.\n\n**Additional Questions:**\n\n1. What is the current state of the conflict between Iran and Israel?\n2. What are the potential consequences of US intervention in the conflict?\n3. How does the US's relationship with Israel impact the conflict?\n4. What are the humanitarian implications of the conflict, and how can the international community mitigate the harm caused to civilians?\n5. What is the significance of Iran's nuclear program, and how can it be addressed through diplomatic means?",
+      "users": [],
+      "details": {},
+      "created_at": "2025-06-18T15:04:57.126548",
+      "updated_at": "2025-06-18T15:04:57.126548"
+    }
+  ]
+}
