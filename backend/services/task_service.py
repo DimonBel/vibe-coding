@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 from typing import Dict, List, Any, Optional
-from ..database.storage import storage
+from ..database.storage import mongo_storage
 from ..services.ai_service import ai_service
 
 class TaskService:
@@ -9,11 +9,11 @@ class TaskService:
     
     def get_all_tasks(self) -> List[Dict[str, Any]]:
         """Get all tasks"""
-        return storage.get_all_tasks()
+        return mongo_storage.get_all_tasks()
     
     def get_task_by_id(self, task_id: str) -> Optional[Dict[str, Any]]:
         """Get a task by ID"""
-        return storage.find_task(task_id)
+        return mongo_storage.find_task(task_id)
     
     def create_task(self, task_data: Dict[str, Any]) -> Dict[str, Any]:
         """Create a new task"""
@@ -38,12 +38,12 @@ class TaskService:
             'updated_at': now
         }
         
-        storage.add_task(new_task)
+        mongo_storage.add_task(new_task)
         return new_task
     
     def update_task(self, task_id: str, task_data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """Update a task"""
-        task = storage.find_task(task_id)
+        task = mongo_storage.find_task(task_id)
         if not task:
             return None
         
@@ -58,20 +58,20 @@ class TaskService:
             )
             task_data['ai_response'] = ai_response
         
-        updated_task = storage.update_task(task_id, task_data)
+        updated_task = mongo_storage.update_task(task_id, task_data)
         return updated_task
     
     def delete_task(self, task_id: str) -> bool:
         """Delete a task"""
-        return storage.delete_task(task_id)
+        return mongo_storage.delete_task(task_id)
     
     def assign_user_to_task(self, task_id: str, user_id: str) -> bool:
         """Assign a user to a task"""
-        return storage.assign_user_to_task(task_id, user_id)
+        return mongo_storage.assign_user_to_task(task_id, user_id)
     
     def remove_user_from_task(self, task_id: str, user_id: str) -> bool:
         """Remove a user from a task"""
-        return storage.remove_user_from_task(task_id, user_id)
+        return mongo_storage.remove_user_from_task(task_id, user_id)
 
 # Global task service instance
 task_service = TaskService() 

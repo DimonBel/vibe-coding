@@ -3,17 +3,25 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Task, taskApi, CreateTaskRequest, UpdateTaskRequest } from '@/lib/api';
+import { Task, taskApi, CreateTaskRequest, UpdateTaskRequest, User, userApi } from '@/lib/api';
 import { toast } from 'sonner';
 import TaskDialog from '@/components/TaskDialog';
 import TaskList from '@/components/TaskList';
 import UserManagement from '@/components/UserManagement';
+import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Home as HomeIcon, ListChecks, Users, Settings, PlusCircle, BarChart, MessageCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [isTaskDialogOpen, setIsTaskDialogOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
+  const [assignUserTask, setAssignUserTask] = useState<Task | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<string>('');
+  const [assigning, setAssigning] = useState(false);
 
   const loadTasks = async () => {
     try {
@@ -30,17 +38,17 @@ export default function Home() {
 
   useEffect(() => {
     loadTasks();
+    userApi.getAll().then(setUsers);
   }, []);
 
-  const handleTaskSubmit = async (taskId: string | null, taskData: CreateTaskRequest | UpdateTaskRequest) => {
+  const handleTaskSubmit = async (taskId: string | null, data: unknown) => {
+    const taskData = data as CreateTaskRequest | UpdateTaskRequest;
     try {
       if (taskId) {
-        // Update existing task
         await taskApi.update(taskId, taskData as UpdateTaskRequest);
         toast.success('Task updated successfully');
         setEditingTask(null);
       } else {
-        // Create new task
         await taskApi.create(taskData as CreateTaskRequest);
         toast.success('Task created successfully');
         setIsTaskDialogOpen(false);
@@ -96,73 +104,134 @@ export default function Home() {
     pending: tasks.filter(task => task.status === 'pending').length,
   };
 
+  // Recent tasks (show 5 most recent)
+  const recentTasks = [...tasks]
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .slice(0, 5);
+
+  const handleAssignUser = async () => {
+    if (!assignUserTask || !selectedUserId) return;
+    setAssigning(true);
+    try {
+      await taskApi.assignUser(assignUserTask.id, selectedUserId);
+      toast.success('User assigned to task');
+      setAssignUserTask(null);
+      setSelectedUserId('');
+      loadTasks();
+    } catch (error) {
+      toast.error('Failed to assign user');
+    } finally {
+      setAssigning(false);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Task Management Dashboard</h1>
-          <p className="text-gray-600">Manage your tasks with AI-powered insights</p>
+    <div className="min-h-screen flex bg-gradient-to-br from-blue-50 via-white to-gray-100">
+      {/* Sidebar */}
+      <aside className="hidden md:flex flex-col w-64 bg-white/90 border-r px-6 py-8 space-y-8 shadow-lg rounded-r-3xl">
+        <div className="flex items-center gap-3 mb-10">
+          <BarChart className="text-blue-600" size={28} />
+          <span className="font-extrabold text-2xl text-gray-900 tracking-tight">TaskDash</span>
         </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Tasks</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.total}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Completed</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">{stats.completed}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">In Progress</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-blue-600">{stats.inProgress}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-yellow-600">{stats.pending}</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Actions */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex gap-2">
-            <Button onClick={() => setIsTaskDialogOpen(true)}>
-              Create New Task
-            </Button>
+        <nav className="flex flex-col gap-3">
+          <Link href="/" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <HomeIcon size={20} /> Dashboard
+          </Link>
+          <Link href="/tasks/create" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <PlusCircle size={20} /> Create Task
+          </Link>
+          <Link href="/users" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <Users size={20} /> Users
+          </Link>
+          <Link href="/playground" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <MessageCircle size={20} /> Playground
+          </Link>
+          <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <Settings size={20} /> Settings
+          </a>
+        </nav>
+        <div className="mt-auto flex items-center gap-4 bg-blue-50 rounded-xl p-3 shadow-inner">
+          <Avatar className="h-10 w-10">
+            <AvatarFallback>JD</AvatarFallback>
+          </Avatar>
+          <div>
+            <div className="font-bold text-gray-900">John Doe</div>
+            <div className="text-xs text-blue-600 font-medium">Admin</div>
           </div>
         </div>
+      </aside>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-h-screen">
+        {/* Header Bar */}
+        <header className="flex items-center justify-between px-10 py-6 bg-white/80 border-b shadow-sm">
+          <div>
+            <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard</h1>
+            <p className="text-gray-500 text-base mt-1">Welcome back! Here's what's happening with your tasks today.</p>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button onClick={() => setIsTaskDialogOpen(true)} className="gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md">
+              <PlusCircle size={20} /> New Task
+            </Button>
+            <Avatar className="h-10 w-10">
+              <AvatarFallback>JD</AvatarFallback>
+            </Avatar>
+          </div>
+        </header>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-10 py-8">
+          <Card className="flex flex-col items-start justify-between h-full w-full bg-gradient-to-br from-blue-100 to-white border-0 shadow-md rounded-2xl">
+            <CardHeader className="flex flex-row items-center gap-3 pb-2">
+              <BarChart className="text-blue-600" size={24} />
+              <CardTitle className="text-base font-semibold">Total Tasks</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-blue-900">{stats.total}</div>
+            </CardContent>
+          </Card>
+          <Card className="flex flex-col items-start justify-between h-full w-full bg-gradient-to-br from-green-100 to-white border-0 shadow-md rounded-2xl">
+            <CardHeader className="flex flex-row items-center gap-3 pb-2">
+              <ListChecks className="text-green-600" size={24} />
+              <CardTitle className="text-base font-semibold">Completed</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-green-700">{stats.completed}</div>
+            </CardContent>
+          </Card>
+          <Card className="flex flex-col items-start justify-between h-full w-full bg-gradient-to-br from-blue-200 to-white border-0 shadow-md rounded-2xl">
+            <CardHeader className="flex flex-row items-center gap-3 pb-2">
+              <ListChecks className="text-blue-600" size={24} />
+              <CardTitle className="text-base font-semibold">In Progress</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-blue-700">{stats.inProgress}</div>
+            </CardContent>
+          </Card>
+          <Card className="flex flex-col items-start justify-between h-full w-full bg-gradient-to-br from-yellow-100 to-white border-0 shadow-md rounded-2xl">
+            <CardHeader className="flex flex-row items-center gap-3 pb-2">
+              <ListChecks className="text-yellow-600" size={24} />
+              <CardTitle className="text-base font-semibold">Pending</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-extrabold text-yellow-600">{stats.pending}</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Dashboard Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 px-10 pb-10">
           {/* Task List */}
-          <div className="lg:col-span-2">
-            <Card>
+          <div className="lg:col-span-2 flex flex-col gap-8">
+            <Card className="shadow-lg rounded-2xl border-0">
               <CardHeader>
-                <CardTitle>Tasks</CardTitle>
-                <CardDescription>Manage and track your tasks</CardDescription>
+                <CardTitle className="text-xl font-bold">Tasks</CardTitle>
+                <CardDescription className="text-base">Manage and track your tasks</CardDescription>
               </CardHeader>
               <CardContent>
                 {loading ? (
                   <div className="flex justify-center items-center h-32">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
                   </div>
                 ) : (
                   <TaskList
@@ -171,14 +240,40 @@ export default function Home() {
                     onDelete={handleDeleteTask}
                     getStatusColor={getStatusColor}
                     getPriorityColor={getPriorityColor}
+                    onAssignUser={(task: Task) => setAssignUserTask(task)}
                   />
                 )}
+              </CardContent>
+            </Card>
+            {/* Recent Activity */}
+            <Card className="shadow-lg rounded-2xl border-0 bg-white/90">
+              <CardHeader>
+                <CardTitle className="text-lg font-bold">Recent Tasks</CardTitle>
+                <CardDescription className="text-base">Latest tasks created</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="divide-y divide-gray-200">
+                  {recentTasks.length === 0 && (
+                    <li className="py-3 text-gray-500 text-base">No recent tasks.</li>
+                  )}
+                  {recentTasks.map(task => (
+                    <li key={task.id} className="py-3 flex items-center justify-between">
+                      <div>
+                        <span className="font-semibold text-gray-900">{task.title}</span>
+                        <span className="ml-3 text-xs">
+                          <Badge className={getStatusColor(task.status) + ' px-2 py-1 rounded-full text-xs font-semibold'}>{task.status.replace('_', ' ')}</Badge>
+                        </span>
+                      </div>
+                      <span className="text-xs text-gray-500">{new Date(task.created_at).toLocaleDateString()}</span>
+                    </li>
+                  ))}
+                </ul>
               </CardContent>
             </Card>
           </div>
 
           {/* User Management */}
-          <div>
+          <div className="flex flex-col gap-8">
             <UserManagement />
           </div>
         </div>
@@ -195,6 +290,38 @@ export default function Home() {
           task={editingTask}
           onSubmit={handleTaskSubmit}
         />
+
+        {/* Assign User Dialog */}
+        {assignUserTask && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-30">
+            <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+              <h2 className="text-xl font-bold mb-4">Assign User to Task</h2>
+              <div className="mb-4">
+                <label className="block mb-2 font-medium">Select User</label>
+                <select
+                  className="border rounded-lg px-4 py-2 w-full"
+                  value={selectedUserId}
+                  onChange={e => setSelectedUserId(e.target.value)}
+                >
+                  <option value="">-- Select a user --</option>
+                  {users.map(user => (
+                    <option key={user.id} value={user.id}>
+                      {user.username} ({user.email})
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex gap-2 justify-end">
+                <Button variant="outline" onClick={() => setAssignUserTask(null)}>
+                  Cancel
+                </Button>
+                <Button onClick={handleAssignUser} disabled={!selectedUserId || assigning}>
+                  {assigning ? 'Assigning...' : 'Assign User'}
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

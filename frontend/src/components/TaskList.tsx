@@ -12,9 +12,10 @@ interface TaskListProps {
   onDelete: (taskId: string) => void;
   getStatusColor: (status: string) => string;
   getPriorityColor: (priority?: string) => string;
+  onAssignUser: (task: Task) => void;
 }
 
-export default function TaskList({ tasks, onEdit, onDelete, getStatusColor, getPriorityColor }: TaskListProps) {
+export default function TaskList({ tasks, onEdit, onDelete, getStatusColor, getPriorityColor, onAssignUser }: TaskListProps) {
   const formatDate = (dateString: string) => {
     try {
       return format(new Date(dateString), 'MMM dd, yyyy');
@@ -93,6 +94,13 @@ export default function TaskList({ tasks, onEdit, onDelete, getStatusColor, getP
                     onClick={() => onEdit(task)}
                   >
                     Edit
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => onAssignUser(task)}
+                  >
+                    Assign User
                   </Button>
                   <Button
                     variant="destructive"
