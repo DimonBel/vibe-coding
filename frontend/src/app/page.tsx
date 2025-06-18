@@ -32,27 +32,23 @@ export default function Home() {
     loadTasks();
   }, []);
 
-  const handleCreateTask = async (taskData: CreateTaskRequest) => {
+  const handleTaskSubmit = async (taskId: string | null, taskData: CreateTaskRequest | UpdateTaskRequest) => {
     try {
-      await taskApi.create(taskData);
-      toast.success('Task created successfully');
+      if (taskId) {
+        // Update existing task
+        await taskApi.update(taskId, taskData as UpdateTaskRequest);
+        toast.success('Task updated successfully');
+        setEditingTask(null);
+      } else {
+        // Create new task
+        await taskApi.create(taskData as CreateTaskRequest);
+        toast.success('Task created successfully');
+        setIsTaskDialogOpen(false);
+      }
       loadTasks();
-      setIsTaskDialogOpen(false);
     } catch (error) {
-      toast.error('Failed to create task');
-      console.error('Error creating task:', error);
-    }
-  };
-
-  const handleUpdateTask = async (taskId: string, taskData: UpdateTaskRequest) => {
-    try {
-      await taskApi.update(taskId, taskData);
-      toast.success('Task updated successfully');
-      loadTasks();
-      setEditingTask(null);
-    } catch (error) {
-      toast.error('Failed to update task');
-      console.error('Error updating task:', error);
+      toast.error(taskId ? 'Failed to update task' : 'Failed to create task');
+      console.error('Error handling task:', error);
     }
   };
 
@@ -197,7 +193,7 @@ export default function Home() {
             }
           }}
           task={editingTask}
-          onSubmit={editingTask ? handleUpdateTask : handleCreateTask}
+          onSubmit={handleTaskSubmit}
         />
       </div>
     </div>

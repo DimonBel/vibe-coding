@@ -1,5 +1,6 @@
 from flask import request
 from flask_restx import Resource, Namespace
+from http import HTTPStatus
 from ..services.task_service import task_service
 from ..services.user_service import user_service
 
@@ -17,12 +18,17 @@ def create_task_routes(api, models):
             return task_service.get_all_tasks()
 
         @ns_tasks.expect(models['task_create'])
-        @ns_tasks.marshal_with(models['task'], code=201)
+        @ns_tasks.marshal_with(models['task'])
         def post(self):
             """Create new task"""
+            print(f"Request headers: {dict(request.headers)}")
+            print(f"Request data: {request.get_data()}")
+            print(f"Request json: {request.json}")
             data = request.json
-            new_task = task_service.create_task(data)
-            return new_task, 201
+            if data is None:
+                api.abort(400, "Invalid JSON data")
+            new_task = task_service.create_task(data)  # type: ignore
+            return new_task, HTTPStatus.CREATED
 
     @ns_tasks.route('/<string:task_id>')
     class TaskResource(Resource):
@@ -39,7 +45,9 @@ def create_task_routes(api, models):
         def put(self, task_id):
             """Update task"""
             data = request.json
-            updated_task = task_service.update_task(task_id, data)
+            if data is None:
+                api.abort(400, "Invalid JSON data")
+            updated_task = task_service.update_task(task_id, data)  # type: ignore
             if not updated_task:
                 api.abort(404, "Task not found")
             return updated_task
