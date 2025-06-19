@@ -10,7 +10,7 @@ import TaskList from '@/components/TaskList';
 import UserManagement from '@/components/UserManagement';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Home as HomeIcon, ListChecks, Users, Settings, PlusCircle, BarChart, MessageCircle } from 'lucide-react';
+import { Home as HomeIcon, ListChecks, Users, Settings, PlusCircle, BarChart, MessageCircle, Dumbbell, Film } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
@@ -145,6 +145,15 @@ export default function Home() {
           </Link>
           <Link href="/playground" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
             <MessageCircle size={20} /> Playground
+          </Link>
+          <Link href="/habit-trainer" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <Dumbbell size={20} /> Habit Trainer
+          </Link>
+          <Link href="/emotion-recognition" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <span role="img" aria-label="Emotion">😊</span> Emotion Recognition
+          </Link>
+          <Link href="/films" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
+            <Film size={20} /> Film Recommendations
           </Link>
           <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-blue-50 font-semibold transition-colors">
             <Settings size={20} /> Settings

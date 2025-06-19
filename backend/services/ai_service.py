@@ -34,5 +34,25 @@ class AIService:
         prompt = f"Updated task: {title}. New details: {description}. Provide updated guidance."
         return self.ask_groq(prompt)
 
+    def habit_trainer(self, habit_goal: str, context: str = "") -> str:
+        """Generate a personalized habit-building plan for the user"""
+        prompt = (
+            f"You are an AI Habit Trainer. A user wants to build the following habit: '{habit_goal}'. "
+            f"Context: {context if context else 'No additional context provided.'} "
+            "Provide a step-by-step, motivational, and practical plan to help the user build and sustain this habit. "
+            "Include tips for overcoming common obstacles and how to track progress."
+        )
+        return self.ask_groq(prompt)
+
+    def recognize_emotion(self, text: str) -> str:
+        """Recognize emotion(s) from the given text using Groq AI"""
+        prompt = (
+            f"Analyze the following text and identify the primary emotion(s) expressed. "
+            f"Text: '{text}'\n"
+            "Respond with a single word or a short phrase describing the emotion(s), such as 'joy', 'sadness', 'anger', 'fear', 'surprise', 'disgust', or 'neutral'. "
+            "If multiple emotions are present, list them separated by commas."
+        )
+        return self.ask_groq(prompt)
+
 # Global AI service instance
 ai_service = AIService() 

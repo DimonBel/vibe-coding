@@ -68,6 +68,44 @@ def create_api_models(api):
     chat_response_model = api.model('ChatResponse', {
         'response': fields.String(description='Chatbot response')
     })
+
+    # Habit Trainer request model
+    habit_trainer_request_model = api.model('HabitTrainerRequest', {
+        'habit_goal': fields.String(required=True, description='The habit the user wants to build'),
+        'context': fields.String(required=False, description='Additional context about the user or situation')
+    })
+
+    # Habit Trainer response model
+    habit_trainer_response_model = api.model('HabitTrainerResponse', {
+        'plan': fields.String(description='Personalized habit-building plan')
+    })
+
+    # Emotion Recognition request model
+    emotion_recognition_request_model = api.model('EmotionRecognitionRequest', {
+        'text': fields.String(required=True, description='Text to analyze for emotion recognition')
+    })
+
+    # Emotion Recognition response model
+    emotion_recognition_response_model = api.model('EmotionRecognitionResponse', {
+        'emotions': fields.String(description='Recognized emotion(s) from the text')
+    })
+
+    # Film model
+    film_model = api.model('Film', {
+        'title': fields.String(required=True, description='Film title'),
+        'year': fields.Integer(required=True, description='Release year'),
+        'genre': fields.String(required=True, description='Genre'),
+    })
+
+    # Film recommendation request model
+    film_recommendation_request_model = api.model('FilmRecommendationRequest', {
+        'query': fields.String(description='Search query for film recommendations'),
+    })
+
+    # Film recommendation response model
+    film_recommendation_response_model = api.model('FilmRecommendationResponse', {
+        'films': fields.List(fields.Nested(film_model), description='List of recommended films'),
+    })
     
     return {
         'user': user_model,
@@ -77,5 +115,12 @@ def create_api_models(api):
         'user_create': user_create_model,
         'error': error_model,
         'chat_request': chat_request_model,
-        'chat_response': chat_response_model
+        'chat_response': chat_response_model,
+        'habit_trainer_request': habit_trainer_request_model,
+        'habit_trainer_response': habit_trainer_response_model,
+        'emotion_recognition_request': emotion_recognition_request_model,
+        'emotion_recognition_response': emotion_recognition_response_model,
+        'film': film_model,
+        'film_recommendation_request': film_recommendation_request_model,
+        'film_recommendation_response': film_recommendation_response_model
     } 

@@ -13,6 +13,7 @@ class MongoDBStorage:
         self.db = self.client[self.db_name]
         self.users = self.db['users']
         self.tasks = self.db['tasks']
+        self.films = self.db['films']
 
     def find_task(self, task_id):
         return self.tasks.find_one({'id': task_id})
@@ -60,6 +61,26 @@ class MongoDBStorage:
 
     def user_exists_by_email(self, email):
         return self.users.count_documents({'email': email}) > 0
+
+    # Film methods
+    def add_films(self, films: list):
+        if films:
+            self.films.insert_many(films)
+
+    def get_top_films(self, limit=5):
+        return list(self.films.find({}, {'_id': 0}).sort('popularity', -1).limit(limit))
+
+    def search_films(self, query: str, limit=20):
+        q = query.lower()
+        filters = {
+            "$or": [
+                {"title": {"$regex": q, "$options": "i"}},
+                {"genre": {"$regex": f"^{q}$", "$options": "i"}},
+            ]
+        }
+        if q.isdigit():
+            filters["$or"].append({"year": int(q)})
+        return list(self.films.find(filters, {'_id': 0}).sort('popularity', -1).limit(limit))
 
 # Global MongoDB storage instance
 mongo_storage = MongoDBStorage() 

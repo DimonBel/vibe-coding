@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import Image from "next/image";
 import Link from "next/link";

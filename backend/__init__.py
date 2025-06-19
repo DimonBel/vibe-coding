@@ -6,6 +6,7 @@ from .models.schemas import create_api_models
 from .routes.task_routes import create_task_routes
 from .routes.user_routes import create_user_routes
 from .routes.chat_routes import create_chat_routes
+from .routes.film_routes import create_film_routes
 
 def create_app(config_name=None):
     """Application factory pattern"""
@@ -34,5 +35,6 @@ def create_app(config_name=None):
     create_task_routes(api, models)
     create_user_routes(api, models)
     create_chat_routes(api, models)
+    create_film_routes(api, models)
     
     return app 
