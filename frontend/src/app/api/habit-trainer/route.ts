@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     );
     const data = await backendRes.json();
     return NextResponse.json(data, { status: backendRes.status });
-  } catch (error: any) {
-    return NextResponse.json({ plan: '', error: error.message || 'Unknown error' }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ plan: '', error: (error as Error).message || 'Unknown error' }, { status: 500 });
   }
 } 

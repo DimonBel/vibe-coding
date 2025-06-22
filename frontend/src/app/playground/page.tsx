@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import Image from "next/image";
 import Link from "next/link";
@@ -44,8 +44,8 @@ export default function PlaygroundPage() {
         ...msgs,
         { role: "bot", content: data.response || "(No response)" },
       ]);
-    } catch (e: any) {
-      setError(e.message || "Unknown error");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : "Unknown error");
       setMessages((msgs) => [
         ...msgs,
         { role: "bot", content: "Sorry, something went wrong." },
@@ -96,11 +96,10 @@ export default function PlaygroundPage() {
                 </Avatar>
               )}
               <div
-                className={`px-4 py-2 rounded-2xl shadow text-base max-w-md break-words transition-all duration-200 ${
-                  msg.role === "user"
-                    ? "bg-blue-600 text-white rounded-br-md animate-fadeInRight"
-                    : "bg-gray-100 text-gray-900 rounded-bl-md animate-fadeInLeft"
-                }`}
+                className={`px-4 py-2 rounded-2xl shadow text-base max-w-md break-words transition-all duration-200 ${msg.role === "user"
+                  ? "bg-blue-600 text-white rounded-br-md animate-fadeInRight"
+                  : "bg-gray-100 text-gray-900 rounded-bl-md animate-fadeInLeft"
+                  }`}
               >
                 {msg.content}
               </div>

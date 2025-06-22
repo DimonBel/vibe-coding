@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
+type Film = { title: string; year: string; genre: string; popularity?: number };
+
 function StarRating({ value }: { value: number }) {
   const fullStars = Math.round(value);
   return (
@@ -14,7 +16,7 @@ function StarRating({ value }: { value: number }) {
 }
 
 export default function FilmsPage() {
-  const [films, setFilms] = useState<any[]>([]);
+  const [films, setFilms] = useState<Film[]>([]);
   const [filmSearch, setFilmSearch] = useState("");
   const [filmLoading, setFilmLoading] = useState(false);
   const [filmError, setFilmError] = useState<string | null>(null);
@@ -32,8 +34,8 @@ export default function FilmsPage() {
       if (!res.ok) throw new Error("Failed to fetch films");
       const data = await res.json();
       setFilms(data.films || []);
-    } catch (e: any) {
-      setFilmError(e.message || "Unknown error");
+    } catch (e) {
+      setFilmError((e as Error).message || "Unknown error");
       setFilms([]);
     } finally {
       setFilmLoading(false);

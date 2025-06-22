@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { PlusCircle } from 'lucide-react';
-import { taskApi, CreateTaskRequest } from '@/lib/api';
+import { taskApi } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
 export default function CreateTaskPage() {
@@ -37,9 +37,6 @@ export default function CreateTaskPage() {
       setTimeout(() => {
         router.push('/');
       }, 1000);
-    } catch (error) {
-      // Optionally show error
-      setSuccess(false);
     } finally {
       setSubmitting(false);
     }

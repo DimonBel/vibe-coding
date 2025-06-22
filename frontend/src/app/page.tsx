@@ -28,9 +28,8 @@ export default function Home() {
       setLoading(true);
       const fetchedTasks = await taskApi.getAll();
       setTasks(fetchedTasks);
-    } catch (error) {
+    } catch {
       toast.error('Failed to load tasks');
-      console.error('Error loading tasks:', error);
     } finally {
       setLoading(false);
     }
@@ -118,7 +117,7 @@ export default function Home() {
       setAssignUserTask(null);
       setSelectedUserId('');
       loadTasks();
-    } catch (error) {
+    } catch {
       toast.error('Failed to assign user');
     } finally {
       setAssigning(false);
@@ -176,7 +175,7 @@ export default function Home() {
         <header className="flex items-center justify-between px-10 py-6 bg-white/80 border-b shadow-sm">
           <div>
             <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Dashboard</h1>
-            <p className="text-gray-500 text-base mt-1">Welcome back! Here's what's happening with your tasks today.</p>
+            <p className="text-gray-500 text-base mt-1">Welcome back! Here&apos;s what&apos;s happening with your tasks today.</p>
           </div>
           <div className="flex items-center gap-4">
             <Button onClick={() => setIsTaskDialogOpen(true)} className="gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-md">
